@@ -268,7 +268,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1710008872}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: -1.62920685e-07}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -364,6 +364,7 @@ MonoBehaviour:
   destinationSpot: {fileID: 1710008872}
   activeModel: {fileID: 0}
   pointInList: 0
+  indexesForPlayerCharacters: 0
   poolerList:
   - {fileID: 150800, guid: a61a7ee7a88fc274f9aad41cd1895c24, type: 2}
   - {fileID: 172560, guid: 5e0ce7b8f6bd1a6498d85a131dea8883, type: 2}

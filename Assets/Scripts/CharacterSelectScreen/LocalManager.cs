@@ -6,27 +6,67 @@ public partial class LocalManager : MonoBehaviour
     [SerializeField] private GameObject destinationSpot;
     [SerializeField] private GameObject activeModel;
     [SerializeField] private int pointInList = 0;
+    [SerializeField] private int indexesForPlayerCharacters;
 
     private void Awake()
     {
         Debug.Log("Loading Start");
         Pooler();
+        indexesForPlayerCharacters = playerCharacters.Count - 1;
         Debug.Log("Loading Done");
         ShowPCChoices();
+    }
+
+    private void Update()
+    {
+        NextPC();
+        PreviousPC();
     }
     
     private void ShowPCChoices()
     {
-        //Debug.Log("I'm about to start manipulating the objects.");
-        //Debug.Log("The point in the list we're working with is: " + pointInList);
+        if(activeModel != null)
+        {
+            activeModel.SetActive(false);
+            activeModel.transform.position = poolerLocation.transform.position;
+            activeModel.transform.rotation = poolerLocation.transform.rotation;
+        }
+
         activeModel = playerCharacters[pointInList];
-        //Debug.Log("The active model is now asigned this object: " + activeModel.name);
-        //Debug.Log("The active model's position is: " + activeModel.transform.position);
-        //Debug.Log("The destination spot's position is: " + destinationSpot.transform.position);
         activeModel.transform.position = destinationSpot.transform.position;
-        //Debug.Log("The active model's position is: " + activeModel.transform.position);
-        //Debug.Log("The active model's position should be: " + destinationSpot.transform.position);
         activeModel.transform.rotation = destinationSpot.transform.rotation;
         activeModel.SetActive(true);
+    }
+
+    private void NextPC()
+    {
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            if(pointInList < indexesForPlayerCharacters)
+            {
+                pointInList += 1;
+            }
+            else
+            {
+                pointInList = 0;
+            }
+            ShowPCChoices();
+        }
+    }
+
+    private void PreviousPC()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            if (pointInList > 0)
+            {
+                pointInList -= 1;
+            }
+            else
+            {
+                pointInList = indexesForPlayerCharacters;
+            }
+            ShowPCChoices();
+        }
     }
 }
