@@ -121,7 +121,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -267,7 +269,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1710008872}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: .638999999, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -360,15 +362,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destinationSpot: {fileID: 1710008872}
-  playerCharacter:
+  activeModel: {fileID: 0}
+  pointInList: 0
+  poolerList:
   - {fileID: 150800, guid: a61a7ee7a88fc274f9aad41cd1895c24, type: 2}
-  - {fileID: 174060, guid: 8170fa50a5d31a64da6513e917aef4f6, type: 2}
-  - {fileID: 181714, guid: e5a36d4ba6358084882c947a5bd3a81e, type: 2}
-  - {fileID: 162324, guid: eab61dec3f63446419f4eaa966ff1394, type: 2}
-  - {fileID: 112280, guid: d9e4511501f0be6408cdaa464c985c18, type: 2}
-  - {fileID: 169496, guid: 91bd77509609c20439c873344cd8a3cc, type: 2}
-  - {fileID: 170426, guid: ac7669d1228edcf44803dbe6fe40d271, type: 2}
-  - {fileID: 141254, guid: 792b3594ea06dc44a803ecbe87881068, type: 2}
+  - {fileID: 172560, guid: 5e0ce7b8f6bd1a6498d85a131dea8883, type: 2}
+  - {fileID: 111540, guid: 59a9609232bfd714b9946d52d7263b0c, type: 2}
+  playerCharacters: []
   poolerLocation: {fileID: 2126149331}
 --- !u!4 &2038878669
 Transform:
@@ -404,7 +404,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2126149331}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -23.9099998}
+  m_LocalPosition: {x: 0, y: 0, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
