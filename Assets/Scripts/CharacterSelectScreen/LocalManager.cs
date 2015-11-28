@@ -3,6 +3,7 @@ using System.Collections;
 
 public partial class LocalManager : MonoBehaviour
 {
+    
     [SerializeField] private GameObject destinationSpot;
     [SerializeField] private GameObject activeModel;
     [SerializeField] private int pointInList = 0;
