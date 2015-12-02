@@ -401,6 +401,33 @@ Prefab:
 Transform:
   m_PrefabParentObject: {fileID: 466252, guid: d60742f675c0309459e7f97b51c1cced, type: 2}
   m_PrefabInternal: {fileID: 56902065}
+--- !u!1 &68614784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 68614785}
+  m_Layer: 0
+  m_Name: PoolerLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &68614785
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 68614784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 25.2999992, y: 5.0999999, z: -6.0999999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &79497476 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 169730, guid: 3f380532660aaec4ea83db0b899843b1, type: 2}
@@ -3039,6 +3066,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   p1CurrentWP: {fileID: 433413282}
+  poolerLocation: {fileID: 68614784}
+  player1Model: {fileID: 0}
 --- !u!1001 &412636183
 Prefab:
   m_ObjectHideFlags: 0

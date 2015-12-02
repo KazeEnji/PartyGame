@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public partial class LocalManager : MonoBehaviour
+public partial class CharacterSelectLocalManager : MonoBehaviour
 {
     //These variables are for holding onto the posisions to make the character selects work.
     [SerializeField] private GameObject destinationSpot;
     [SerializeField] private GameObject activeModel;
+    [SerializeField] private GameObject universalGM;
     [SerializeField] private int pointInList = 0;
     [SerializeField] private int indexesForPlayerCharacters;
 
@@ -13,6 +14,7 @@ public partial class LocalManager : MonoBehaviour
     private void Awake()
     {
         Debug.Log("Loading Start");
+        universalGM = GameObject.FindGameObjectWithTag("UGM");
         Pooler();
 
         //Gets the indexes of the instantiated list for characeter switching later.
@@ -82,5 +84,10 @@ public partial class LocalManager : MonoBehaviour
             }
             ShowPCChoices();
         }
+    }
+
+    public void Select()
+    {
+        universalGM.GetComponent<UniversalGameManager>().SetP1Holder(pointInList);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public partial class LocalManager : MonoBehaviour
+public partial class CharacterSelectLocalManager : MonoBehaviour
 {
     //List for prefabs.
     [SerializeField] private List<GameObject> poolerList = new List<GameObject>();
@@ -32,7 +32,10 @@ public partial class LocalManager : MonoBehaviour
                 //Adds the instantiated object to a different list.
                 playerCharacters.Add(_tempPC);
             }
+
+            GameObject.FindGameObjectWithTag("UGM").GetComponent<UniversalGameManager>().SetCharacterPrefabs(poolerList);
         }
+
         //If not, debug the error.
         else
         {

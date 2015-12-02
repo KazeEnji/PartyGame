@@ -22,7 +22,7 @@ public class Spinner : MonoBehaviour
     {
         roll = Random.Range(minRoll, maxRoll);
         numOutput.text = roll.ToString();
-        gameManager.GetComponent<GameManager>().SetP1Roll(roll);
+        gameManager.GetComponent<MainBoardLocalManager>().SetP1Roll(roll);
     }
 
     //Begins player 1's turn.
@@ -30,6 +30,6 @@ public class Spinner : MonoBehaviour
     {
         mainCam.GetComponent<CameraMoveBoardGame>().enabled = true;
         movementCanvas.SetActive(false);
-        gameManager.GetComponent<GameManager>().StartP1Move();
+        gameManager.GetComponent<MainBoardLocalManager>().StartP1Move();
     }
 }

@@ -9,6 +9,7 @@ TagManager:
   - MovementCanvas
   - Player1
   - ItemShop
+  - UGM
   layers:
   - Default
   - TransparentFX
