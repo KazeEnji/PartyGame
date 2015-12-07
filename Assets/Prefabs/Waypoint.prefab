@@ -12,7 +12,7 @@ GameObject:
   - 65: {fileID: 6582308}
   - 114: {fileID: 11420654}
   - 23: {fileID: 2398758}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Waypoint
   m_TagString: Waypoint
   m_Icon: {fileID: -1412012063857583412, guid: 0000000000000000d000000000000000, type: 0}
@@ -49,7 +49,9 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_MinimumChartSize: 4
   m_AutoUVMaxDistance: .5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
@@ -85,11 +87,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c61f8c524966e6b4abf2591479a590c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waypointCount: 0
+  distanceToMove: 0
+  pathList: []
+  finalWP: 0
+  activeWP: 0
+  player1: {fileID: 0}
   forwardWP: {fileID: 0}
   backWP: {fileID: 0}
   leftWP: {fileID: 0}
   rightWP: {fileID: 0}
+  connectedBuilding: {fileID: 0}
   rayFlag: 0
+  rayLength: 50
+  waypointLayerMask: 256
+  dirForward: {x: 0, y: 0, z: 0}
+  dirBack: {x: 0, y: 0, z: 0}
+  dirLeft: {x: 0, y: 0, z: 0}
+  dirRight: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -101,6 +116,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 7f219e99872f68044a0943f836ff4343, type: 2}
+    - target: {fileID: 0}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 169730}

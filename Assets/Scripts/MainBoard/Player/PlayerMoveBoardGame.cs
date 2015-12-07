@@ -25,7 +25,7 @@ public class PlayerMoveBoardGame : MonoBehaviour
 
     void Awake()
     {
-        localGameManager = GameObject.FindGameObjectWithTag("LocalGameManager");
+        localGameManager = GameObject.FindGameObjectWithTag("LGM");
     }
 
 	//Sets original starting position of the player.

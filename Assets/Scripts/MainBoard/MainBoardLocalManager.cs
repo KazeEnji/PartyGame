@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class MainBoardLocalManager : MonoBehaviour 
+public class MainBoardLocalManager : MonoBehaviour
 {
     /// <summary>
     /// This is the local game manager. 
@@ -11,15 +11,15 @@ public class MainBoardLocalManager : MonoBehaviour
     /// </summary>
 
     //Declare current player waypoints.
-    public GameObject p1CurrentWP;
+    [SerializeField] private GameObject p1CurrentWP;
     [SerializeField] private GameObject poolerLocation;
     [SerializeField] private GameObject player1Model;
 
     //Declare current player rolls.
-    private int p1Roll;
+    [SerializeField] private int p1Roll;
 
     //Declare path to follow.
-    private List<GameObject> pathList = new List<GameObject>();
+    [SerializeField] private List<GameObject> pathList = new List<GameObject>();
 
     void Awake()
     {
@@ -28,6 +28,11 @@ public class MainBoardLocalManager : MonoBehaviour
         _tempPlayer1Model = GameObject.FindGameObjectWithTag("UGM").GetComponent<UniversalGameManager>().GetP1Holder();
 
         player1Model = (GameObject)Instantiate(_tempPlayer1Model, poolerLocation.transform.position, poolerLocation.transform.rotation);
+        player1Model.AddComponent<PlayerStatSystem>();
+        player1Model.AddComponent<PlayerInventory>();
+        player1Model.AddComponent<PlayerMoveBoardGame>();
+        player1Model.name = "Player1";
+        player1Model.tag = "Player1";
         player1Model.SetActive(true);
     }
 

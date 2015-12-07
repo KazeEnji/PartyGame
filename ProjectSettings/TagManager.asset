@@ -4,7 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - LocalGameManager
+  - LGM
   - Waypoint
   - MovementCanvas
   - Player1
