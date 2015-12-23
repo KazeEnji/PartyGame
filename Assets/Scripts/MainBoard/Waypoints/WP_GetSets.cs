@@ -62,10 +62,10 @@ public partial class Waypoints : MonoBehaviour
                 _editedPathList.Add(this.gameObject);
 
                 //Returns the edited list back to the player to move through.
-                player1.GetComponent<PlayerMoveBoardGame>().SetPathList(_editedPathList);
+             //   player1.GetComponent<PlayerMoveBoardGame>().SetPathList(_editedPathList);
 
                 //Tells the player to move.
-                player1.GetComponent<PlayerMoveBoardGame>().MovePlayer1();
+             //   player1.GetComponent<PlayerMoveBoardGame>().MovePlayer1();
 
                 activeWP = false;
             }

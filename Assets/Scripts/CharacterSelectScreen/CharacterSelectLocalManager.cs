@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public partial class CharacterSelectLocalManager : MonoBehaviour
@@ -7,14 +8,24 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     [SerializeField] private GameObject destinationSpot;
     [SerializeField] private GameObject activeModel;
     [SerializeField] private GameObject universalGM;
+    [SerializeField] private GameObject p1Char, p2Char, p3Char, p4Char;
+
     [SerializeField] private int pointInList = 0;
     [SerializeField] private int indexesForPlayerCharacters;
+    [SerializeField] private int currentPlayerNumber = 1;
+    [SerializeField] private int totalPlayerCount = 1;
+
+    [SerializeField] private bool p1DPHInUseFlag = false;
+    [SerializeField] private bool p1ReadyFlag = false;
+
+    [SerializeField] private string p1DPH = "P1DPadHorizontal";
 
     //Calls the pooler for grabbing the models.
     private void Awake()
     {
         Debug.Log("Loading Start");
         universalGM = GameObject.FindGameObjectWithTag("UGM");
+
         Pooler();
 
         //Gets the indexes of the instantiated list for characeter switching later.
@@ -27,6 +38,8 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
 
     private void Update()
     {
+        resetInputFlags();
+
         //Waits for keypress to switch characters on screen.
         NextPC();
         PreviousPC();
@@ -50,12 +63,20 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         activeModel.SetActive(true);
     }
 
-    //Advance to the next model in the list on keypress.
-    //This will eventually be changed for joystick input.
+    //Flips the flag to allow the player to press the button again for input.
+    private void resetInputFlags()
+    {
+        if(Input.GetAxis(p1DPH) == 0)
+        p1DPHInUseFlag = false;
+    }
+
+    //Advance to the next model in the list on keypress or joystick
     private void NextPC()
     {
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.C) || (Input.GetAxis(p1DPH) == 1 && p1DPHInUseFlag == false))
         {
+            p1DPHInUseFlag = true;
+
             if(pointInList < indexesForPlayerCharacters)
             {
                 pointInList += 1;
@@ -68,12 +89,13 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         }
     }
 
-    //Advance to the previous model in the list on keypress.
-    //This will eventually be changed for joystick input.
+    //Advance to the previous model in the list on keypress or joystick
     private void PreviousPC()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) || (Input.GetAxis(p1DPH) == -1 && p1DPHInUseFlag == false))
         {
+            p1DPHInUseFlag = true;
+
             if (pointInList > 0)
             {
                 pointInList -= 1;
@@ -86,8 +108,19 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         }
     }
 
-    public void Select()
+    public void P1SelectChar()
     {
-        universalGM.GetComponent<UniversalGameManager>().SetP1Holder(pointInList);
+            universalGM.GetComponent<UniversalGameManager>().SetP1Holder(pointInList);
+            p1ReadyFlag = true;
+            Debug.Log("Player 1 has chosen number: " + pointInList);
+    }
+
+    public void StartGame()
+    {
+        if (p1ReadyFlag == true)
+        {
+            Debug.Log("Loading...");
+            SceneManager.LoadScene(2);
+        }
     }
 }

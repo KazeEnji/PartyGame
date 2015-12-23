@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,11 +10,13 @@ public class MainBoardLocalManager : MonoBehaviour
     /// Local managers are not held over after
     /// a level load.
     /// </summary>
-
+    
     //Declare current player waypoints.
     [SerializeField] private GameObject p1CurrentWP;
     [SerializeField] private GameObject poolerLocation;
     [SerializeField] private GameObject player1Model;
+
+    [SerializeField] private GameObject startingWP;
 
     //Declare current player rolls.
     [SerializeField] private int p1Roll;
@@ -41,7 +44,7 @@ public class MainBoardLocalManager : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Q))
         {
-            Application.LoadLevel(3);
+            SceneManager.LoadScene(3);
         }
 	}
 
@@ -57,5 +60,10 @@ public class MainBoardLocalManager : MonoBehaviour
     public void SetP1Roll(int _passedRoll)
     {
         p1Roll = _passedRoll;
+    }
+
+    public GameObject GetStartingWP()
+    {
+        return startingWP;
     }
 }

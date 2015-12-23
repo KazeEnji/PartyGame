@@ -5,7 +5,9 @@ using System.Collections.Generic;
 public class UniversalGameManager : MonoBehaviour
 {
     [SerializeField] private int p1PointInList;
+
     [SerializeField] private GameObject p1Holder;
+
     [SerializeField] private List<GameObject> characterPrefabs = new List<GameObject>();
 
     public void Awake()
