@@ -14,6 +14,14 @@ public partial class Waypoints : MonoBehaviour
     //Declare the player variables
     [SerializeField] private GameObject player1;
 
+    //Do all the things
+    public void BeginWaypointCalculations(int _roll, GameObject _currentWP, List<GameObject> _pathList)
+    {
+        SetMoveDistance(_roll);
+        SetActiveWP();
+        CalcDist(_roll, _currentWP, _pathList);
+    }
+
     //This method is simply to set the total movement rolled.
     public void SetMoveDistance(int _moveDistance)
     {

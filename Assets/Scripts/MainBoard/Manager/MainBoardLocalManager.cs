@@ -15,17 +15,22 @@ public class MainBoardLocalManager : MonoBehaviour
     [SerializeField] private GameObject p1CurrentWP;
     [SerializeField] private GameObject poolerLocation;
     [SerializeField] private GameObject player1Model;
-
     [SerializeField] private GameObject startingWP;
+    [SerializeField] private GameObject dicePrefab, dice1, dice2;
+    [SerializeField] private GameObject preMoveCanvas;
 
     //Declare current player rolls.
-    [SerializeField] private int p1Roll;
+    [SerializeField] private int totalRolled;
+    [SerializeField] private int numberOfReadyDice = 0;
 
     //Declare path to follow.
     [SerializeField] private List<GameObject> pathList = new List<GameObject>();
+    [SerializeField] private List<int> diceValues = new List<int>();
 
     void Awake()
     {
+        preMoveCanvas = GameObject.FindGameObjectWithTag("PreMoveCanvas");
+
         GameObject _tempPlayer1Model;
 
         _tempPlayer1Model = GameObject.FindGameObjectWithTag("UGM").GetComponent<UniversalGameManager>().GetP1Holder();
@@ -37,6 +42,14 @@ public class MainBoardLocalManager : MonoBehaviour
         player1Model.name = "Player1";
         player1Model.tag = "Player1";
         player1Model.SetActive(true);
+
+        dice1 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
+        dice1.name = "Dice1";
+        dice1.SetActive(false);
+
+        dice2 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
+        dice2.name = "Dice2";
+        dice2.SetActive(false);
     }
 
 	//Allows for the player to quit the game when built.
@@ -48,18 +61,42 @@ public class MainBoardLocalManager : MonoBehaviour
         }
 	}
 
-    //Sets the move distance and begins the calculations for where the player can move.
-    public void StartP1Move()
+    public void RollDice()
     {
-        p1CurrentWP.GetComponent<Waypoints>().SetMoveDistance(p1Roll);
-        p1CurrentWP.GetComponent<Waypoints>().SetActiveWP();
-        p1CurrentWP.GetComponent<Waypoints>().CalcDist(p1Roll, p1CurrentWP, pathList);
+        preMoveCanvas.SetActive(false);
+        dice1.GetComponent<DiceStatus>().Roll();
+        dice2.GetComponent<DiceStatus>().Roll();
+    }
+
+    public void SetDiceValueToList(int _value)
+    {
+        diceValues.Add(_value);
+
+        numberOfReadyDice++;
+
+        if(numberOfReadyDice == 2)
+        {
+            foreach (int _number in diceValues)
+            {
+                totalRolled += _number;
+            }
+
+            numberOfReadyDice = 0;
+
+            StartMove();
+        }
+    }
+
+    //Sets the move distance and begins the calculations for where the player can move.
+    public void StartMove()
+    {
+        p1CurrentWP.GetComponent<Waypoints>().BeginWaypointCalculations(totalRolled, p1CurrentWP, pathList);
     }
 
     //Allows the spinner to pass the roll to the player.
     public void SetP1Roll(int _passedRoll)
     {
-        p1Roll = _passedRoll;
+        totalRolled = _passedRoll;
     }
 
     public GameObject GetStartingWP()

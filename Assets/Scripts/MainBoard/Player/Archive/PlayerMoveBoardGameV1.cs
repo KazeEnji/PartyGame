@@ -66,7 +66,7 @@ public class PlayerMoveBoardGameV1 : MonoBehaviour
         {
             if(currentBuilding.gameObject.tag == "ItemShop")
             {
-                localGameManager.GetComponent<ItemShop>().ShowShopCanvas();
+                //localGameManager.GetComponent<Shop>().ShowShopCanvas();
             }
         }
 

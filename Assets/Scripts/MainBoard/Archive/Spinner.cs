@@ -30,6 +30,6 @@ public class Spinner : MonoBehaviour
     {
         mainCam.GetComponent<CameraMoveBoardGame>().enabled = true;
         movementCanvas.SetActive(false);
-        gameManager.GetComponent<MainBoardLocalManager>().StartP1Move();
+        gameManager.GetComponent<MainBoardLocalManager>().StartMove();
     }
 }

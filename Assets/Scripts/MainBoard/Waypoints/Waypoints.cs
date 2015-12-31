@@ -114,7 +114,7 @@ public partial class Waypoints : MonoBehaviour
             {
                 forwardWP = hitForward.collider.gameObject;
             }
-            else if(hitForward.collider.gameObject.tag == "ItemShop")
+            else if(hitForward.collider.gameObject.tag == "Shop")
             {
                 connectedBuilding = hitForward.collider.gameObject;
             }
@@ -125,7 +125,7 @@ public partial class Waypoints : MonoBehaviour
             {
                 backWP = hitBack.collider.gameObject;
             }
-            else if (hitBack.collider.gameObject.tag == "ItemShop")
+            else if (hitBack.collider.gameObject.tag == "Shop")
             {
                 connectedBuilding = hitBack.collider.gameObject;
             }
@@ -136,7 +136,7 @@ public partial class Waypoints : MonoBehaviour
             {
                 leftWP = hitLeft.collider.gameObject;
             }
-            else if (hitLeft.collider.gameObject.tag == "ItemShop")
+            else if (hitLeft.collider.gameObject.tag == "Shop")
             {
                 connectedBuilding = hitLeft.collider.gameObject;
             }
@@ -147,7 +147,7 @@ public partial class Waypoints : MonoBehaviour
             {
                 rightWP = hitRight.collider.gameObject;
             }
-            else if (hitRight.collider.gameObject.tag == "ItemShop")
+            else if (hitRight.collider.gameObject.tag == "Shop")
             {
                 connectedBuilding = hitRight.collider.gameObject;
             }

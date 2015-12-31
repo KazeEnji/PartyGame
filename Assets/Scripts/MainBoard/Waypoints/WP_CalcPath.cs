@@ -21,9 +21,6 @@ public partial class Waypoints : MonoBehaviour
          */
         _path.Add(this.gameObject);
 
-        //This prevents the player from clicking on this if it isn't an ending waypoint.
-        finalWP = false;
-
         /* If this is the first waypoint in the chain, you need to add one
          * to the move distance. This must be executed BEFORE the if statement
          * looking for how many connected waypoints there are. If this doesn't
@@ -58,12 +55,26 @@ public partial class Waypoints : MonoBehaviour
 
             //Blue signifies viable moves for the player.
             this.GetComponent<Renderer>().material.color = Color.blue;
+
+            Debug.Log(this.gameObject.name + " is a final waypoint.");
         }
         //If this isn't the final stop, continue pathfinding.
         else
         {
-            //Yellow signifies a registered move but not the end.
-            this.GetComponent<Renderer>().material.color = Color.yellow;
+            if(finalWP != true)
+            {
+                /*
+                Yellow signifies a registered move but not the end.
+                Additionally, the IF statement prevents a final waypoint
+                from another path calculation from being overwritten
+                by a succeeding one and thus keeping the blue material.
+
+                Without this part, it should still be a selectable final
+                waypoint but with no visual trigger to signify it's final
+                waypoint status.
+                */
+                this.GetComponent<Renderer>().material.color = Color.yellow;
+            }
 
             _dist -= 1;
 

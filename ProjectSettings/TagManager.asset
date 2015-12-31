@@ -6,10 +6,12 @@ TagManager:
   tags:
   - LGM
   - Waypoint
-  - MovementCanvas
+  - PreMoveCanvas
   - Player1
-  - ItemShop
+  - Shop
   - UGM
+  - Dice
+  - ItemShop
   layers:
   - Default
   - TransparentFX
