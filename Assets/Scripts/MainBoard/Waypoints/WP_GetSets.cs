@@ -22,6 +22,26 @@ public partial class Waypoints : MonoBehaviour
         CalcDist(_roll, _currentWP, _pathList);
     }
 
+    public GameObject GetForwardWP()
+    {
+        return forwardWP;
+    }
+
+    public GameObject GetBackWP()
+    {
+        return backWP;
+    }
+
+    public GameObject GetRightWP()
+    {
+        return rightWP;
+    }
+
+    public GameObject GetLeftWP()
+    {
+        return leftWP;
+    }
+
     //This method is simply to set the total movement rolled.
     public void SetMoveDistance(int _moveDistance)
     {

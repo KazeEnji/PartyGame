@@ -67,7 +67,9 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     private void resetInputFlags()
     {
         if(Input.GetAxis(p1DPH) == 0)
-        p1DPHInUseFlag = false;
+        {
+            p1DPHInUseFlag = false;
+        }
     }
 
     //Advance to the next model in the list on keypress or joystick

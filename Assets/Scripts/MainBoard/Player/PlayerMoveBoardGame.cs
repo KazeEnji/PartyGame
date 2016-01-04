@@ -20,6 +20,8 @@ public class PlayerMoveBoardGame : MonoBehaviour
     [SerializeField] private GameObject startingWP;
     [SerializeField] private GameObject mainCamera;
 
+    [SerializeField] private Transform focusedWaypoint; 
+
     private void Awake()
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
@@ -33,6 +35,11 @@ public class PlayerMoveBoardGame : MonoBehaviour
     private void NavigateSpaces()
     {
         //Insert code to navigate through the board with a controller
+    }
 
+    private void SetCameraTarget()
+    {
+        //Set camera target and initiate the camera move script.
+        mainCamera.GetComponent<SmoothLookAndFollow>().SetTarget(focusedWaypoint);
     }
 }
