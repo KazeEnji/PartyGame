@@ -1,0 +1,1 @@
+Use only 1 die by default, not two...allows for movement of 1 space, now a lowest movement of 2.

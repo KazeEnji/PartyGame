@@ -36,10 +36,4 @@ public class PlayerMoveBoardGame : MonoBehaviour
     {
         //Insert code to navigate through the board with a controller
     }
-
-    private void SetCameraTarget()
-    {
-        //Set camera target and initiate the camera move script.
-        mainCamera.GetComponent<SmoothLookAndFollow>().SetTarget(focusedWaypoint);
-    }
 }
