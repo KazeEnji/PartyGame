@@ -7,6 +7,8 @@ public class PlayerViewportController : MonoBehaviour
     [SerializeField] private int playerID;
     [SerializeField] private int currentState;
 
+    [SerializeField] private GameObject startStateCanvas;
+
     [SerializeField] private Player player;
 
     private void Start()
@@ -49,9 +51,15 @@ public class PlayerViewportController : MonoBehaviour
     {
         Debug.Log("Press Start");
 
+        if(startStateCanvas.activeSelf == false)
+        {
+            startStateCanvas.SetActive(true);
+        }
+
         if (player.GetButtonDown("Start"))
         {
             Debug.Log("Player " + playerID + " hit start");
+            startStateCanvas.SetActive(false);
             currentState++;
         }
     }
