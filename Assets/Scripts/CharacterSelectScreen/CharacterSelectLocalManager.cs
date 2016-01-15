@@ -13,18 +13,29 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     [SerializeField] private int pointInList = 0;
     [SerializeField] private int indexesForPlayerCharacters;
     [SerializeField] private int currentPlayerNumber = 1;
-    [SerializeField] private int totalPlayerCount = 1;
+    [SerializeField] private int totalPlayerCount;
 
     [SerializeField] private bool p1DPHInUseFlag = false;
+    [SerializeField] private bool p2DPHInUseFlag = false;
+    [SerializeField] private bool p3DPHInUseFlag = false;
+    [SerializeField] private bool p4DPHInUseFlag = false;
     [SerializeField] private bool p1ReadyFlag = false;
+    [SerializeField] private bool p2ReadyFlag = false;
+    [SerializeField] private bool p3ReadyFlag = false;
+    [SerializeField] private bool p4ReadyFlag = false;
 
     [SerializeField] private string p1DPH = "P1DPadHorizontal";
+    [SerializeField] private string p2DPH = "P2DPadHorizontal";
+    [SerializeField] private string p3DPH = "P3DPadHorizontal";
+    [SerializeField] private string p4DPH = "P4DPadHorizontal";
 
     //Calls the pooler for grabbing the models.
     private void Awake()
     {
         Debug.Log("Loading Start");
+
         universalGM = GameObject.FindGameObjectWithTag("UGM");
+        totalPlayerCount = universalGM.GetComponent<UniversalGameManager>().GetNumberOfPlayers();
 
         Pooler();
 
@@ -38,11 +49,13 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
 
     private void Update()
     {
+        /*
         resetInputFlags();
 
         //Waits for keypress to switch characters on screen.
         NextPC();
         PreviousPC();
+        */
     }
     
     private void ShowPCChoices()
@@ -69,6 +82,18 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         if(Input.GetAxis(p1DPH) == 0)
         {
             p1DPHInUseFlag = false;
+        }
+        if (Input.GetAxis(p2DPH) == 0)
+        {
+            p2DPHInUseFlag = false;
+        }
+        if (Input.GetAxis(p3DPH) == 0)
+        {
+            p3DPHInUseFlag = false;
+        }
+        if (Input.GetAxis(p4DPH) == 0)
+        {
+            p4DPHInUseFlag = false;
         }
     }
 
@@ -110,11 +135,14 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         }
     }
 
-    public void P1SelectChar()
+    public void SelectChar()
     {
+        if(currentPlayerNumber < totalPlayerCount)
+        {
             universalGM.GetComponent<UniversalGameManager>().SetP1Holder(pointInList);
             p1ReadyFlag = true;
             Debug.Log("Player 1 has chosen number: " + pointInList);
+        }
     }
 
     public void StartGame()
@@ -122,7 +150,7 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         if (p1ReadyFlag == true)
         {
             Debug.Log("Loading...");
-            SceneManager.LoadScene(2);
+            SceneManager.LoadScene("MainBoard");
         }
     }
 }

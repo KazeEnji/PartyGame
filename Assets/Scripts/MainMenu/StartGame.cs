@@ -6,6 +6,6 @@ public class StartGame : MonoBehaviour
 {
     public void Begin()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("PlayerCount");
     }
 }
