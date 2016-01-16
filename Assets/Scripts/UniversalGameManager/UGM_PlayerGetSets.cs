@@ -3,53 +3,55 @@ using System.Collections;
 
 public partial class UniversalGameManager : MonoBehaviour
 {
-    public void SetP1Holder(int _P1Character)
+    public void SetPlayerHolders(int _playerNumber, int _characterPointInList)
     {
-        p1PointInList = _P1Character;
+        switch (_playerNumber)
+        {
+            case 0:
+                {
+                    p1PointInList = _characterPointInList;
+                    break;
+                }
+            case 1:
+                {
+                    p2PointInList = _characterPointInList;
+                    break;
+                }
+            case 2:
+                {
+                    p3PointInList = _characterPointInList;
+                    break;
+                }
+            case 3:
+                {
+                    p4PointInList = _characterPointInList;
+                    break;
+                }
+        }
     }
 
-    public void SetP2Holder(int _P2Character)
+    public int GetPointsInList(int _playerNumber)
     {
-        p2PointInList = _P2Character;
-    }
+        switch (_playerNumber)
+        {
+            case 0:
+                {
+                    return p1PointInList;
+                }
+            case 1:
+                {
+                    return p2PointInList;
+                }
+            case 2:
+                {
+                    return p3PointInList;
+                }
+            case 3:
+                {
+                    return p4PointInList;
+                }
+        }
 
-    public void SetP3Holder(int _P3Character)
-    {
-        p3PointInList = _P3Character;
-    }
-
-    public void SetP4Holder(int _P4Character)
-    {
-        p4PointInList = _P4Character;
-    }
-
-    public int GetP1PointInList()
-    {
-        return p1PointInList;
-    }
-
-    public int GetP2PointInList()
-    {
-        return p2PointInList;
-    }
-
-    public int GetP3PointInList()
-    {
-        return p3PointInList;
-    }
-
-    public int GetP4PointInList()
-    {
-        return p4PointInList;
-    }
-
-    public void SetNumberOfPlayers(int _value)
-    {
-        numberOfPlayers = _value;
-    }
-
-    public int GetNumberOfPlayers()
-    {
-        return numberOfPlayers;
+        return -1;
     }
 }

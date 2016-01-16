@@ -4,8 +4,12 @@ using System.Collections;
 
 public class StartGame : MonoBehaviour 
 {
+    [SerializeField] private int sceneNumber;
+
     public void Begin()
     {
-        SceneManager.LoadScene("PlayerCount");
+        sceneNumber = SceneManager.GetActiveScene().buildIndex;
+
+        SceneManager.LoadScene(sceneNumber + 1);
     }
 }

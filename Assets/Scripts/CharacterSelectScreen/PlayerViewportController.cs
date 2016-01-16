@@ -9,7 +9,14 @@ public class PlayerViewportController : MonoBehaviour
 
     [SerializeField] private GameObject startStateCanvas;
 
+    [SerializeField] private CharacterSelectLocalManager localGameManagerScript;
+
     [SerializeField] private Player player;
+
+    private void Awake()
+    {
+        localGameManagerScript = GameObject.FindGameObjectWithTag("LGM").GetComponent<CharacterSelectLocalManager>();
+    }
 
     private void Start()
     {
@@ -35,8 +42,6 @@ public class PlayerViewportController : MonoBehaviour
             case 1:
                 {
                     ChoosePlayerCharacterState();
-                    //Insert code for changing characters
-                    //Or insert code to activate script for changing characters.
                     break;
                 }
             case 2:
@@ -67,12 +72,24 @@ public class PlayerViewportController : MonoBehaviour
     private void ChoosePlayerCharacterState()
     {
         Debug.Log("Choose player character");
+        
+        if(player.GetButtonDown("R1"))
+        {
+            localGameManagerScript.NextPC();
+        }
+        
+        if(player.GetButtonDown("L1"))
+        {
+            localGameManagerScript.PreviousPC();
+        }
 
         if (player.GetButtonDown("Cross"))
         {
             Debug.Log("Player has chosen a character.");
+            localGameManagerScript.SelectChar(playerID);
             currentState++;
         }
+
         if (player.GetButtonDown("Circle"))
         {
             Debug.Log("Player as gone back one state.");

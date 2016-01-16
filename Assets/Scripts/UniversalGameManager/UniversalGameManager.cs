@@ -8,7 +8,6 @@ public partial class UniversalGameManager : MonoBehaviour
     [SerializeField] private int p2PointInList;
     [SerializeField] private int p3PointInList;
     [SerializeField] private int p4PointInList;
-    [SerializeField] private int numberOfPlayers;
 
     [SerializeField] private GameObject p1Holder;
     [SerializeField] private GameObject p2Holder;
