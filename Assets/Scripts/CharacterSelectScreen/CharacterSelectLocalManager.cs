@@ -24,12 +24,9 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         //Gets the indexes of the instantiated list for characeter switching later.
         indexesForPlayerCharacters = playerCharacters.Count - 1;
         Debug.Log("Loading Done");
-
-        //Displays the character models.
-        ShowPCChoices();
     }
     
-    private void ShowPCChoices()
+    public void ShowPCChoices()
     {
         //Checks to see if there's already a model loaded
         if(activeModel != null)
@@ -45,6 +42,11 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         activeModel.transform.position = destinationSpot.transform.position;
         activeModel.transform.rotation = destinationSpot.transform.rotation;
         activeModel.SetActive(true);
+    }
+
+    public void HidePCChoices()
+    {
+        activeModel.SetActive(false);
     }
 
     //Advance to the next model in the list on keypress or joystick

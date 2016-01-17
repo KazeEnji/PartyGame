@@ -8,6 +8,7 @@ public class PlayerViewportController : MonoBehaviour
     [SerializeField] private int currentState;
 
     [SerializeField] private GameObject startStateCanvas;
+    [SerializeField] private GameObject p1Platform;
 
     [SerializeField] private CharacterSelectLocalManager localGameManagerScript;
 
@@ -65,6 +66,8 @@ public class PlayerViewportController : MonoBehaviour
         {
             Debug.Log("Player " + playerID + " hit start");
             startStateCanvas.SetActive(false);
+            p1Platform.SetActive(true);
+            localGameManagerScript.ShowPCChoices();
             currentState++;
         }
     }
@@ -93,6 +96,9 @@ public class PlayerViewportController : MonoBehaviour
         if (player.GetButtonDown("Circle"))
         {
             Debug.Log("Player as gone back one state.");
+            startStateCanvas.SetActive(true);
+            p1Platform.SetActive(false);
+            localGameManagerScript.HidePCChoices();
             currentState--;
         }
     }
