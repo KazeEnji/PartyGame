@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Rewired;
 
 public class PlayerViewportController : MonoBehaviour
@@ -8,7 +9,10 @@ public class PlayerViewportController : MonoBehaviour
     [SerializeField] private int currentState;
 
     [SerializeField] private GameObject startStateCanvas;
-    [SerializeField] private GameObject p1Platform;
+    [SerializeField] private GameObject destinationPlatform;
+    [SerializeField] private GameObject destinationCharacterSpot;
+
+    [SerializeField] private List<GameObject> characterPool = new List<GameObject>();
 
     [SerializeField] private CharacterSelectLocalManager localGameManagerScript;
 
@@ -22,6 +26,7 @@ public class PlayerViewportController : MonoBehaviour
     private void Start()
     {
         player = ReInput.players.GetPlayer(playerID);
+        characterPool = localGameManagerScript.GetCharacterList(playerID);
         currentState = 0;
     }
 
@@ -66,8 +71,8 @@ public class PlayerViewportController : MonoBehaviour
         {
             Debug.Log("Player " + playerID + " hit start");
             startStateCanvas.SetActive(false);
-            p1Platform.SetActive(true);
-            localGameManagerScript.ShowPCChoices();
+            destinationPlatform.SetActive(true);
+            localGameManagerScript.ShowPCChoices(playerID, destinationCharacterSpot);
             currentState++;
         }
     }
@@ -78,12 +83,12 @@ public class PlayerViewportController : MonoBehaviour
         
         if(player.GetButtonDown("R1"))
         {
-            localGameManagerScript.NextPC();
+            localGameManagerScript.NextPC(playerID, destinationCharacterSpot);
         }
         
         if(player.GetButtonDown("L1"))
         {
-            localGameManagerScript.PreviousPC();
+            localGameManagerScript.PreviousPC(playerID, destinationCharacterSpot);
         }
 
         if (player.GetButtonDown("Cross"))
@@ -97,8 +102,8 @@ public class PlayerViewportController : MonoBehaviour
         {
             Debug.Log("Player as gone back one state.");
             startStateCanvas.SetActive(true);
-            p1Platform.SetActive(false);
-            localGameManagerScript.HidePCChoices();
+            destinationPlatform.SetActive(false);
+            localGameManagerScript.HidePCChoices(playerID);
             currentState--;
         }
     }
