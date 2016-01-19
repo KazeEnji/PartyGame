@@ -8,7 +8,11 @@ public class PlayerViewportController : MonoBehaviour
     [SerializeField] private int playerID;
     [SerializeField] private int currentState;
 
+    [SerializeField] private bool p1AllPlayersReady;
+
     [SerializeField] private GameObject startStateCanvas;
+    [SerializeField] private GameObject finalCanvas;
+    [SerializeField] private GameObject p1NotReadyNotificationCanvas;
     [SerializeField] private GameObject destinationPlatform;
     [SerializeField] private GameObject destinationCharacterSpot;
 
@@ -55,6 +59,16 @@ public class PlayerViewportController : MonoBehaviour
                     ReadyState();
                     break;
                 }
+            case 3:
+                {
+                    FinalState();
+                    break;
+                }
+            case 4:
+                {
+                    NotAllReady();
+                    break;
+                }
         }
     }
 
@@ -94,7 +108,7 @@ public class PlayerViewportController : MonoBehaviour
         if (player.GetButtonDown("Cross"))
         {
             Debug.Log("Player has chosen a character.");
-            localGameManagerScript.SelectChar(playerID);
+            localGameManagerScript.SelectChar(playerID); //Finish hooking up character select
             currentState++;
         }
 
@@ -112,10 +126,57 @@ public class PlayerViewportController : MonoBehaviour
     {
         Debug.Log("Player: " + playerID + " is ready");
 
+        localGameManagerScript.SetPlayerReady(playerID, true);
+
+        if(player.GetButtonDown("Cross"))
+        {
+            currentState++;
+        }
+
         if (player.GetButtonDown("Circle"))
         {
             Debug.Log("Player as gone back one state.");
+            localGameManagerScript.SetPlayerReady(playerID, false);
             currentState--;
         }
+    }
+
+    private void FinalState()
+    {
+        Debug.Log("Player: " + playerID + "is in final state.");
+
+        finalCanvas.SetActive(true);
+
+        if(player.GetButtonDown("Start") && playerID == 0)
+        {
+            CheckAllReadyStates();
+
+            if(p1AllPlayersReady)
+            {
+                localGameManagerScript.StartGame();
+            }
+            else
+            {
+                currentState++;
+            }
+        }
+    }
+
+    private void NotAllReady()
+    {
+        Debug.Log("Not all players are ready.");
+
+        p1NotReadyNotificationCanvas.SetActive(true);
+
+        if(player.GetButtonDown("Circle"))
+        {
+            p1NotReadyNotificationCanvas.SetActive(false);
+            currentState--;
+        }
+    }
+
+    private void CheckAllReadyStates()
+    {
+        p1AllPlayersReady = localGameManagerScript.CheckReady();
     }
 }

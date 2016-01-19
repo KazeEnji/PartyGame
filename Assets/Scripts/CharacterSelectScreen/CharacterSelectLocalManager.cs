@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Rewired;
 
 public partial class CharacterSelectLocalManager : MonoBehaviour
 {
@@ -12,8 +13,14 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     [SerializeField] private GameObject p4ActiveModel;
     [SerializeField] private GameObject universalGM;
 
+    [SerializeField] private bool p1Ready = true;
+    [SerializeField] private bool p2Ready = true;
+    [SerializeField] private bool p3Ready = true;
+    [SerializeField] private bool p4Ready = true;
+
     [SerializeField] private int pointInList = 0;
     [SerializeField] private int indexesForPlayerCharacters;
+    [SerializeField] private int numberOfPlayers;
 
     //Calls the pooler for grabbing the models.
     private void Awake()
@@ -21,6 +28,10 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         Debug.Log("Loading Start");
 
         universalGM = GameObject.FindGameObjectWithTag("UGM");
+
+        ReInput.ControllerConnectedEvent += OnControllerConnected;
+        ReInput.ControllerDisconnectedEvent += OnControllerDisconnected;
+        ReInput.ControllerPreDisconnectEvent += OnControllerPreDisconnect;
 
         Pooler();
 
@@ -172,9 +183,105 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         Debug.Log("Player 1 has chosen number: " + pointInList);
     }
 
+    public void SetPlayerReady(int _playerID, bool _ready)
+    {
+        switch (_playerID)
+        {
+            case 0:
+                {
+                    p1Ready = _ready;
+                    break;
+                }
+            case 1:
+                {
+                    p2Ready = _ready;
+                    break;
+                }
+            case 2:
+                {
+                    p3Ready = _ready;
+                    break;
+                }
+            case 3:
+                {
+                    p4Ready = _ready;
+                    break;
+                }
+        }
+    }
+
     public void StartGame()
     {
         Debug.Log("Loading...");
-        SceneManager.LoadScene("MainBoard");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public bool CheckReady()
+    {
+        switch (numberOfPlayers)
+        {
+            case 1:
+                {
+                    if(p1Ready)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+            case 2:
+                {
+                    if(p1Ready && p2Ready)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+            case 3:
+                {
+                    if(p1Ready && p2Ready && p3Ready)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+            case 4:
+                {
+                    if(p1Ready && p2Ready && p3Ready && p4Ready)
+                    {
+                        return true;
+                    }
+                    break;
+                }
+        }
+
+        return false;
+    }
+
+    private void OnControllerConnected(ControllerStatusChangedEventArgs args)
+    {
+        // This function will be called when a controller is connected
+        // You can get information about the controller that was connected via the args parameter
+        Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+
+        SetPlayerReady(args.controllerId, false);
+        numberOfPlayers++;
+    }
+
+    private void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
+    {
+        // This function will be called when a controller is fully disconnected
+        // You can get information about the controller that was disconnected via the args parameter
+        Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
+
+        SetPlayerReady(args.controllerId, true);
+        numberOfPlayers--;
+    }
+
+    private void OnControllerPreDisconnect(ControllerStatusChangedEventArgs args)
+    {
+        // This function will be called when a controller is about to be disconnected
+        // You can get information about the controller that is being disconnected via the args parameter
+        // You can use this event to save the controller's maps before it's disconnected
+        Debug.Log("A controller is being disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
     }
 }
