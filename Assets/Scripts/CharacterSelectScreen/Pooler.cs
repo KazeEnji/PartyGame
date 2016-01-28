@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public partial class CharacterSelectLocalManager : MonoBehaviour
 {
     //List for prefabs.
+    [Header("Original List")]
     [SerializeField] private List<GameObject> poolerList = new List<GameObject>();
 
     //List for instantiated objects.
+    [Header("Individual lists for players")]
     [SerializeField] private List<GameObject> player1Characters = new List<GameObject>();
     [SerializeField] private List<GameObject> player2Characters = new List<GameObject>();
     [SerializeField] private List<GameObject> player3Characters = new List<GameObject>();

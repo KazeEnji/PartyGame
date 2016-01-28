@@ -10,9 +10,13 @@ public class PlayerViewportController : MonoBehaviour
 
     [SerializeField] private bool p1AllPlayersReady;
 
+    [Header("Canvas Variables")]
     [SerializeField] private GameObject startStateCanvas;
+    [SerializeField] private GameObject characterChosenCanvas;
     [SerializeField] private GameObject finalCanvas;
     [SerializeField] private GameObject p1NotReadyNotificationCanvas;
+
+    [Header("Platform and Spawn Point")]
     [SerializeField] private GameObject destinationPlatform;
     [SerializeField] private GameObject destinationCharacterSpot;
 
@@ -84,6 +88,8 @@ public class PlayerViewportController : MonoBehaviour
         if (player.GetButtonDown("Start"))
         {
             Debug.Log("Player " + playerID + " hit start");
+            localGameManagerScript.IncrementPlayerCount();
+            localGameManagerScript.SetPlayerReady(playerID, false);
             startStateCanvas.SetActive(false);
             destinationPlatform.SetActive(true);
             localGameManagerScript.ShowPCChoices(playerID, destinationCharacterSpot);
@@ -108,13 +114,19 @@ public class PlayerViewportController : MonoBehaviour
         if (player.GetButtonDown("Cross"))
         {
             Debug.Log("Player has chosen a character.");
-            localGameManagerScript.SelectChar(playerID); //Finish hooking up character select
+            characterChosenCanvas.SetActive(true);
+            localGameManagerScript.SelectChar(playerID);
+            destinationPlatform.SetActive(false);
+            localGameManagerScript.HidePCChoices(playerID);
             currentState++;
         }
 
         if (player.GetButtonDown("Circle"))
         {
             Debug.Log("Player as gone back one state.");
+            localGameManagerScript.DecrementPlayerCount();
+            localGameManagerScript.SetPlayerReady(playerID, true);
+            characterChosenCanvas.SetActive(false);
             startStateCanvas.SetActive(true);
             destinationPlatform.SetActive(false);
             localGameManagerScript.HidePCChoices(playerID);
@@ -130,12 +142,16 @@ public class PlayerViewportController : MonoBehaviour
 
         if(player.GetButtonDown("Cross"))
         {
+            characterChosenCanvas.SetActive(false);
             currentState++;
         }
 
         if (player.GetButtonDown("Circle"))
         {
             Debug.Log("Player as gone back one state.");
+            characterChosenCanvas.SetActive(false);
+            destinationPlatform.SetActive(true);
+            localGameManagerScript.ShowPCChoices(playerID, destinationCharacterSpot);
             localGameManagerScript.SetPlayerReady(playerID, false);
             currentState--;
         }
@@ -157,6 +173,7 @@ public class PlayerViewportController : MonoBehaviour
             }
             else
             {
+                finalCanvas.SetActive(false);
                 currentState++;
             }
         }

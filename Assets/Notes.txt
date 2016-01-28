@@ -1,6 +1,4 @@
 Use only 1 die by default, not two...allows for movement of 1 space, now a lowest movement of 2.
 
-Need to change player ready flags to something other than on controller connected...if the controller
-is already connected when the player starts, the flags never change.
-
-There's also some issues with the canvases not showing up in order.
+Get player character selections moving into the MainBoard scene properly. Right now only
+	player 1 moves in properly.

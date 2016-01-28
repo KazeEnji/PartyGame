@@ -6,18 +6,20 @@ using Rewired;
 public partial class CharacterSelectLocalManager : MonoBehaviour
 {
     //These variables are for holding onto the posisions to make the character selects work.
-    //[SerializeField] private GameObject destinationSpot;
+    [Header("Current model viewed")]
     [SerializeField] private GameObject p1ActiveModel;
     [SerializeField] private GameObject p2ActiveModel;
     [SerializeField] private GameObject p3ActiveModel;
     [SerializeField] private GameObject p4ActiveModel;
     [SerializeField] private GameObject universalGM;
 
+    [Header("Ready Status")]
     [SerializeField] private bool p1Ready = true;
     [SerializeField] private bool p2Ready = true;
     [SerializeField] private bool p3Ready = true;
     [SerializeField] private bool p4Ready = true;
 
+    [Header("Misc")]
     [SerializeField] private int pointInList = 0;
     [SerializeField] private int indexesForPlayerCharacters;
     [SerializeField] private int numberOfPlayers;
@@ -257,6 +259,16 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         return false;
     }
 
+    public void IncrementPlayerCount()
+    {
+        numberOfPlayers++;
+    }
+
+    public void DecrementPlayerCount()
+    {
+        numberOfPlayers--;
+    }
+
     private void OnControllerConnected(ControllerStatusChangedEventArgs args)
     {
         // This function will be called when a controller is connected
@@ -264,7 +276,6 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         Debug.Log("A controller was connected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
 
         SetPlayerReady(args.controllerId, false);
-        numberOfPlayers++;
     }
 
     private void OnControllerDisconnected(ControllerStatusChangedEventArgs args)
@@ -274,7 +285,11 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
         Debug.Log("A controller was disconnected! Name = " + args.name + " Id = " + args.controllerId + " Type = " + args.controllerType);
 
         SetPlayerReady(args.controllerId, true);
-        numberOfPlayers--;
+
+        if(numberOfPlayers > 0)
+        {
+            DecrementPlayerCount();
+        }
     }
 
     private void OnControllerPreDisconnect(ControllerStatusChangedEventArgs args)
