@@ -9,25 +9,55 @@ public partial class UniversalGameManager : MonoBehaviour
         {
             case 0:
                 {
-                    p1PointInList = _characterPointInList;
+                    p1Holder = characterPrefabs[_characterPointInList];
                     break;
                 }
             case 1:
                 {
-                    p2PointInList = _characterPointInList;
+                    p2Holder = characterPrefabs[_characterPointInList];
                     break;
                 }
             case 2:
                 {
-                    p3PointInList = _characterPointInList;
+                    p3Holder = characterPrefabs[_characterPointInList];
                     break;
                 }
             case 3:
                 {
-                    p4PointInList = _characterPointInList;
+                    p4Holder = characterPrefabs[_characterPointInList];
                     break;
                 }
         }
+    }
+
+    public GameObject GetP1Holder()
+    {
+        return p1Holder;
+    }
+    
+    public GameObject GetP2Holder()
+    {
+        return p2Holder;
+    }
+
+    public GameObject GetP3Holder()
+    {
+        return p3Holder;
+    }
+
+    public GameObject GetP4Holder()
+    {
+        return p4Holder;
+    }
+
+    public void SetNumberOfPlayers(int _value)
+    {
+        totalNumberOfPlayers = _value;
+    }
+
+    public int GetNumberOfPlayers()
+    {
+        return totalNumberOfPlayers;
     }
 
     public int GetPointsInList(int _playerNumber)

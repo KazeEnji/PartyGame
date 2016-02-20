@@ -14,14 +14,21 @@ public class MainBoardLocalManager : MonoBehaviour
     //Declare current player waypoints.
     [SerializeField] private GameObject p1CurrentWP;
     [SerializeField] private GameObject poolerLocation;
-    [SerializeField] private GameObject player1Model;
     [SerializeField] private GameObject startingWP;
     [SerializeField] private GameObject dicePrefab, dice1, dice2;
     [SerializeField] private GameObject preMoveCanvas;
+    [SerializeField] private GameObject universalGM;
+
+    [Header("Player Models")]
+    [SerializeField] private GameObject player1Model;
+    [SerializeField] private GameObject player2Model;
+    [SerializeField] private GameObject player3Model;
+    [SerializeField] private GameObject player4Model;
 
     //Declare current player rolls.
     [SerializeField] private int totalRolled;
     [SerializeField] private int numberOfReadyDice = 0;
+    [SerializeField] private int totalNumberOfPlayers = 0;
 
     //Declare path to follow.
     [SerializeField] private List<GameObject> pathList = new List<GameObject>();
@@ -30,18 +37,142 @@ public class MainBoardLocalManager : MonoBehaviour
     void Awake()
     {
         preMoveCanvas = GameObject.FindGameObjectWithTag("PreMoveCanvas");
+        universalGM = GameObject.FindGameObjectWithTag("UGM");
 
-        GameObject _tempPlayer1Model;
+        totalNumberOfPlayers = universalGM.GetComponent<UniversalGameManager>().GetNumberOfPlayers();
 
-        _tempPlayer1Model = GameObject.FindGameObjectWithTag("UGM").GetComponent<UniversalGameManager>().GetP1Holder();
+        switch (totalNumberOfPlayers)
+        {
+            case 0:
+                {
+                    Debug.Log("Error: No players present");
+                    break;
+                }
+            case 1:
+                {
+                    GameObject _tempPlayerModel;
 
-        player1Model = (GameObject)Instantiate(_tempPlayer1Model, poolerLocation.transform.position, poolerLocation.transform.rotation);
-        player1Model.AddComponent<PlayerStatSystem>();
-        player1Model.AddComponent<PlayerInventory>();
-        player1Model.AddComponent<PlayerMoveBoardGame>();
-        player1Model.name = "Player1";
-        player1Model.tag = "Player1";
-        player1Model.SetActive(true);
+                    //Alter loading of assest for multiple players
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP1Holder();
+
+                    player1Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player1Model.AddComponent<PlayerStatSystem>();
+                    player1Model.AddComponent<PlayerInventory>();
+                    player1Model.AddComponent<PlayerMoveBoardGame>();
+                    player1Model.name = "Player1";
+                    player1Model.tag = "Player1";
+                    player1Model.SetActive(true);
+                    break;
+                }
+            case 2:
+                {
+                    GameObject _tempPlayerModel;
+
+                    //Alter loading of assest for multiple players
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP1Holder();
+
+                    player1Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player1Model.AddComponent<PlayerStatSystem>();
+                    player1Model.AddComponent<PlayerInventory>();
+                    player1Model.AddComponent<PlayerMoveBoardGame>();
+                    player1Model.name = "Player1";
+                    player1Model.tag = "Player1";
+                    player1Model.SetActive(true);
+
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP2Holder();
+
+                    player2Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player2Model.AddComponent<PlayerStatSystem>();
+                    player2Model.AddComponent<PlayerInventory>();
+                    player2Model.AddComponent<PlayerMoveBoardGame>();
+                    player2Model.name = "Player2";
+                    player2Model.tag = "Player2";
+                    player2Model.SetActive(true);
+                    break;
+                }
+            case 3:
+                {
+                    GameObject _tempPlayerModel;
+
+                    //Alter loading of assest for multiple players
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP1Holder();
+
+                    player1Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player1Model.AddComponent<PlayerStatSystem>();
+                    player1Model.AddComponent<PlayerInventory>();
+                    player1Model.AddComponent<PlayerMoveBoardGame>();
+                    player1Model.name = "Player1";
+                    player1Model.tag = "Player1";
+                    player1Model.SetActive(true);
+
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP2Holder();
+
+                    player2Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player2Model.AddComponent<PlayerStatSystem>();
+                    player2Model.AddComponent<PlayerInventory>();
+                    player2Model.AddComponent<PlayerMoveBoardGame>();
+                    player2Model.name = "Player2";
+                    player2Model.tag = "Player2";
+                    player2Model.SetActive(true);
+
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP3Holder();
+
+                    player3Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player3Model.AddComponent<PlayerStatSystem>();
+                    player3Model.AddComponent<PlayerInventory>();
+                    player3Model.AddComponent<PlayerMoveBoardGame>();
+                    player3Model.name = "Player3";
+                    player3Model.tag = "Player3";
+                    player3Model.SetActive(true);
+                    break;
+                }
+            case 4:
+                {
+                    GameObject _tempPlayerModel;
+
+                    //Alter loading of assest for multiple players
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP1Holder();
+
+                    player1Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player1Model.AddComponent<PlayerStatSystem>();
+                    player1Model.AddComponent<PlayerInventory>();
+                    player1Model.AddComponent<PlayerMoveBoardGame>();
+                    player1Model.name = "Player1";
+                    player1Model.tag = "Player1";
+                    player1Model.SetActive(true);
+
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP2Holder();
+
+                    player2Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player2Model.AddComponent<PlayerStatSystem>();
+                    player2Model.AddComponent<PlayerInventory>();
+                    player2Model.AddComponent<PlayerMoveBoardGame>();
+                    player2Model.name = "Player2";
+                    player2Model.tag = "Player2";
+                    player2Model.SetActive(true);
+
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP3Holder();
+
+                    player3Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player3Model.AddComponent<PlayerStatSystem>();
+                    player3Model.AddComponent<PlayerInventory>();
+                    player3Model.AddComponent<PlayerMoveBoardGame>();
+                    player3Model.name = "Player3";
+                    player3Model.tag = "Player3";
+                    player3Model.SetActive(true);
+
+                    _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP4Holder();
+
+                    player4Model = (GameObject)Instantiate(_tempPlayerModel, poolerLocation.transform.position, poolerLocation.transform.rotation);
+                    player4Model.AddComponent<PlayerStatSystem>();
+                    player4Model.AddComponent<PlayerInventory>();
+                    player4Model.AddComponent<PlayerMoveBoardGame>();
+                    player4Model.name = "Player4";
+                    player4Model.tag = "Player4";
+                    player4Model.SetActive(true);
+                    break;
+                }
+        }
 
         dice1 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
         dice1.name = "Dice1";

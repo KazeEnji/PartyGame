@@ -5,9 +5,11 @@ using Rewired;
 
 public class PlayerViewportController : MonoBehaviour
 {
+    [Header("Ints")]
     [SerializeField] private int playerID;
     [SerializeField] private int currentState;
 
+    [Header("Bools")]
     [SerializeField] private bool p1AllPlayersReady;
 
     [Header("Canvas Variables")]
@@ -20,8 +22,10 @@ public class PlayerViewportController : MonoBehaviour
     [SerializeField] private GameObject destinationPlatform;
     [SerializeField] private GameObject destinationCharacterSpot;
 
+    [Header("Lists")]
     [SerializeField] private List<GameObject> characterPool = new List<GameObject>();
 
+    [Header("Custom Types")]
     [SerializeField] private CharacterSelectLocalManager localGameManagerScript;
 
     [SerializeField] private Player player;

@@ -19,8 +19,13 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     [SerializeField] private bool p3Ready = true;
     [SerializeField] private bool p4Ready = true;
 
+    [Header("Points In List")]
+    [SerializeField] private int p1PointInList = 0;
+    [SerializeField] private int p2PointInList = 0;
+    [SerializeField] private int p3PointInList = 0;
+    [SerializeField] private int p4PointInList = 0;
+
     [Header("Misc")]
-    [SerializeField] private int pointInList = 0;
     [SerializeField] private int indexesForPlayerCharacters;
     [SerializeField] private int numberOfPlayers;
 
@@ -58,7 +63,7 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
                     }
 
                     //If there isn't a model loaded, grab one, move it into position, and turn it on.
-                    p1ActiveModel = player1Characters[pointInList];
+                    p1ActiveModel = player1Characters[p1PointInList];
                     p1ActiveModel.transform.position = _destinationCharacterSpot.transform.position;
                     p1ActiveModel.transform.rotation = _destinationCharacterSpot.transform.rotation;
                     p1ActiveModel.SetActive(true);
@@ -77,7 +82,7 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
                     }
 
                     //If there isn't a model loaded, grab one, move it into position, and turn it on.
-                    p2ActiveModel = player2Characters[pointInList];
+                    p2ActiveModel = player2Characters[p1PointInList];
                     p2ActiveModel.transform.position = _destinationCharacterSpot.transform.position;
                     p2ActiveModel.transform.rotation = _destinationCharacterSpot.transform.rotation;
                     p2ActiveModel.SetActive(true);
@@ -96,7 +101,7 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
                     }
 
                     //If there isn't a model loaded, grab one, move it into position, and turn it on.
-                    p3ActiveModel = player3Characters[pointInList];
+                    p3ActiveModel = player3Characters[p1PointInList];
                     p3ActiveModel.transform.position = _destinationCharacterSpot.transform.position;
                     p3ActiveModel.transform.rotation = _destinationCharacterSpot.transform.rotation;
                     p3ActiveModel.SetActive(true);
@@ -115,7 +120,7 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
                     }
 
                     //If there isn't a model loaded, grab one, move it into position, and turn it on.
-                    p4ActiveModel = player4Characters[pointInList];
+                    p4ActiveModel = player4Characters[p1PointInList];
                     p4ActiveModel.transform.position = _destinationCharacterSpot.transform.position;
                     p4ActiveModel.transform.rotation = _destinationCharacterSpot.transform.rotation;
                     p4ActiveModel.SetActive(true);
@@ -154,35 +159,148 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     //Advance to the next model in the list on keypress or joystick
     public void NextPC(int _playerID, GameObject _destinationPlatform)
     {
-        if (pointInList < indexesForPlayerCharacters)
+        switch (_playerID)
         {
-            pointInList += 1;
+            case 0:
+                {
+                    if (p1PointInList < indexesForPlayerCharacters)
+                    {
+                        p1PointInList += 1;
+                    }
+                    else
+                    {
+                        p1PointInList = 0;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
+            case 1:
+                {
+                    if (p2PointInList < indexesForPlayerCharacters)
+                    {
+                        p2PointInList += 1;
+                    }
+                    else
+                    {
+                        p2PointInList = 0;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
+            case 2:
+                {
+                    if (p3PointInList < indexesForPlayerCharacters)
+                    {
+                        p3PointInList += 1;
+                    }
+                    else
+                    {
+                        p3PointInList = 0;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
+            case 3:
+                {
+                    if (p4PointInList < indexesForPlayerCharacters)
+                    {
+                        p4PointInList += 1;
+                    }
+                    else
+                    {
+                        p4PointInList = 0;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
         }
-        else
-        {
-            pointInList = 0;
-        }
-        ShowPCChoices(_playerID, _destinationPlatform);
     }
 
     //Advance to the previous model in the list on keypress or joystick
     public void PreviousPC(int _playerID, GameObject _destinationPlatform)
     {
-        if (pointInList > 0)
+        switch (_playerID)
         {
-            pointInList -= 1;
+            case 0:
+                {
+                    if (p1PointInList > 0)
+                    {
+                        p1PointInList -= 1;
+                    }
+                    else
+                    {
+                        p1PointInList = indexesForPlayerCharacters;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
+            case 1:
+                {
+                    if (p2PointInList > 0)
+                    {
+                        p2PointInList -= 1;
+                    }
+                    else
+                    {
+                        p2PointInList = indexesForPlayerCharacters;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
+            case 2:
+                {
+                    if (p3PointInList > 0)
+                    {
+                        p3PointInList -= 1;
+                    }
+                    else
+                    {
+                        p3PointInList = indexesForPlayerCharacters;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
+            case 3:
+                {
+                    if (p4PointInList > 0)
+                    {
+                        p4PointInList -= 1;
+                    }
+                    else
+                    {
+                        p4PointInList = indexesForPlayerCharacters;
+                    }
+                    ShowPCChoices(_playerID, _destinationPlatform);
+                    break;
+                }
         }
-        else
-        {
-            pointInList = indexesForPlayerCharacters;
-        }
-        ShowPCChoices(_playerID, _destinationPlatform);
     }
 
     public void SelectChar(int _playerID)
     {
-        universalGM.GetComponent<UniversalGameManager>().SetPlayerHolders(_playerID, pointInList);
-        Debug.Log("Player 1 has chosen number: " + pointInList);
+        switch (_playerID)
+        {
+            case 0:
+                {
+                    universalGM.GetComponent<UniversalGameManager>().SetPlayerHolders(_playerID, p1PointInList);
+                    break;
+                }
+            case 1:
+                {
+                    universalGM.GetComponent<UniversalGameManager>().SetPlayerHolders(_playerID, p2PointInList);
+                    break;
+                }
+            case 2:
+                {
+                    universalGM.GetComponent<UniversalGameManager>().SetPlayerHolders(_playerID, p3PointInList);
+                    break;
+                }
+            case 3:
+                {
+                    universalGM.GetComponent<UniversalGameManager>().SetPlayerHolders(_playerID, p4PointInList);
+                    break;
+                }
+        }
     }
 
     public void SetPlayerReady(int _playerID, bool _ready)
@@ -215,6 +333,7 @@ public partial class CharacterSelectLocalManager : MonoBehaviour
     public void StartGame()
     {
         Debug.Log("Loading...");
+        universalGM.GetComponent<UniversalGameManager>().SetNumberOfPlayers(numberOfPlayers);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 

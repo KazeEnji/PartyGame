@@ -1,4 +1,3 @@
 Use only 1 die by default, not two...allows for movement of 1 space, now a lowest movement of 2.
 
-Get player character selections moving into the MainBoard scene properly. Right now only
-	player 1 moves in properly.
+Test new code for individual player selection.
