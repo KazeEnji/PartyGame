@@ -11,11 +11,11 @@ public class MainBoardLocalManager : MonoBehaviour
     /// a level load.
     /// </summary>
     
-    [Header("Misc")]
-    //Should Move player specific stuff to the players
+    //Declare current player waypoints.
+    [SerializeField] private GameObject p1CurrentWP;
     [SerializeField] private GameObject poolerLocation;
     [SerializeField] private GameObject startingWP;
-    [SerializeField] private GameObject dicePrefab, dice1, dice2, dice3, dice4;
+    [SerializeField] private GameObject dicePrefab, dice1, dice2;
     [SerializeField] private GameObject preMoveCanvas;
     [SerializeField] private GameObject universalGM;
 
@@ -25,108 +25,22 @@ public class MainBoardLocalManager : MonoBehaviour
     [SerializeField] private GameObject player3Model;
     [SerializeField] private GameObject player4Model;
 
-    [Header("Integers")]
     //Declare current player rolls.
     [SerializeField] private int totalRolled;
     [SerializeField] private int numberOfReadyDice = 0;
-    [SerializeField] private int numberOfDiceInPlay = 0;
     [SerializeField] private int totalNumberOfPlayers = 0;
 
-    [Header("Lists")]
     //Declare path to follow.
-    [SerializeField] private List<int> diceValues = new List<int>();
     [SerializeField] private List<GameObject> pathList = new List<GameObject>();
-    [SerializeField] private List<GameObject> playerList = new List<GameObject>();
-    [SerializeField] private List<GameObject> diceList = new List<GameObject>();
+    [SerializeField] private List<int> diceValues = new List<int>();
 
     void Awake()
     {
-        //These are in the Initialization Methods Region
-        InitializeOthers();
-        InitializePlayers();
-        InitializeDice();
-    }
+        preMoveCanvas = GameObject.FindGameObjectWithTag("PreMoveCanvas");
+        universalGM = GameObject.FindGameObjectWithTag("UGM");
 
-	//Allows for the player to quit the game when built.
-	void Update () 
-    {
-        if(Input.GetKeyDown(KeyCode.Q))
-        {
-            SceneManager.LoadScene(3);
-        }
-	}
+        totalNumberOfPlayers = universalGM.GetComponent<UniversalGameManager>().GetNumberOfPlayers();
 
-    public void RollDice()
-    {
-        preMoveCanvas.SetActive(false);
-        //Include incrementing number of dice in play
-    }
-
-    public void SetDiceValueToList(int _value)
-    {
-        diceValues.Add(_value);
-
-        numberOfReadyDice++;
-
-        if(numberOfReadyDice == numberOfDiceInPlay)
-        {
-            foreach (int _number in diceValues)
-            {
-                totalRolled += _number;
-            }
-
-            numberOfReadyDice = 0;
-            numberOfDiceInPlay = 0;
-
-            StartMove();
-        }
-    }
-
-    //Sets the move distance and begins the calculations for where the player can move.
-    public void StartMove()
-    {
-        //Insert code for moving players that passes in player info.
-        //p1CurrentWP.GetComponent<Waypoints>().BeginWaypointCalculations(totalRolled, p1CurrentWP, pathList);
-    }
-
-    //Allows the spinner to pass the roll to the player.
-    public void SetP1Roll(int _passedRoll)
-    {
-        totalRolled = _passedRoll;
-    }
-
-    public GameObject GetStartingWP()
-    {
-        return startingWP;
-    }
-
-    #region Initialization Methods
-
-    private void InitializeDice()
-    {
-        dice1 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
-        dice1.name = "Dice1";
-        dice1.SetActive(false);
-        diceList.Add(dice1);
-
-        dice2 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
-        dice2.name = "Dice2";
-        dice2.SetActive(false);
-        diceList.Add(dice2);
-
-        dice3 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
-        dice3.name = "Dice3";
-        dice3.SetActive(false);
-        diceList.Add(dice3);
-
-        dice4 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
-        dice4.name = "Dice4";
-        dice4.SetActive(false);
-        diceList.Add(dice4);
-    }
-
-    private void InitializePlayers()
-    {
         switch (totalNumberOfPlayers)
         {
             case 0:
@@ -148,7 +62,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player1Model.name = "Player1";
                     player1Model.tag = "Player1";
                     player1Model.SetActive(true);
-                    playerList.Add(player1Model);
                     break;
                 }
             case 2:
@@ -165,7 +78,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player1Model.name = "Player1";
                     player1Model.tag = "Player1";
                     player1Model.SetActive(true);
-                    playerList.Add(player1Model);
 
                     _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP2Holder();
 
@@ -176,7 +88,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player2Model.name = "Player2";
                     player2Model.tag = "Player2";
                     player2Model.SetActive(true);
-                    playerList.Add(player2Model);
                     break;
                 }
             case 3:
@@ -193,7 +104,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player1Model.name = "Player1";
                     player1Model.tag = "Player1";
                     player1Model.SetActive(true);
-                    playerList.Add(player1Model);
 
                     _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP2Holder();
 
@@ -204,7 +114,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player2Model.name = "Player2";
                     player2Model.tag = "Player2";
                     player2Model.SetActive(true);
-                    playerList.Add(player2Model);
 
                     _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP3Holder();
 
@@ -215,7 +124,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player3Model.name = "Player3";
                     player3Model.tag = "Player3";
                     player3Model.SetActive(true);
-                    playerList.Add(player3Model);
                     break;
                 }
             case 4:
@@ -232,7 +140,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player1Model.name = "Player1";
                     player1Model.tag = "Player1";
                     player1Model.SetActive(true);
-                    playerList.Add(player1Model);
 
                     _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP2Holder();
 
@@ -243,7 +150,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player2Model.name = "Player2";
                     player2Model.tag = "Player2";
                     player2Model.SetActive(true);
-                    playerList.Add(player2Model);
 
                     _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP3Holder();
 
@@ -254,7 +160,6 @@ public class MainBoardLocalManager : MonoBehaviour
                     player3Model.name = "Player3";
                     player3Model.tag = "Player3";
                     player3Model.SetActive(true);
-                    playerList.Add(player3Model);
 
                     _tempPlayerModel = universalGM.GetComponent<UniversalGameManager>().GetP4Holder();
 
@@ -265,19 +170,68 @@ public class MainBoardLocalManager : MonoBehaviour
                     player4Model.name = "Player4";
                     player4Model.tag = "Player4";
                     player4Model.SetActive(true);
-                    playerList.Add(player4Model);
                     break;
                 }
         }
+
+        dice1 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
+        dice1.name = "Dice1";
+        dice1.SetActive(false);
+
+        dice2 = (GameObject)Instantiate(dicePrefab, poolerLocation.transform.position, poolerLocation.transform.rotation);
+        dice2.name = "Dice2";
+        dice2.SetActive(false);
     }
 
-    private void InitializeOthers()
+	//Allows for the player to quit the game when built.
+	void Update () 
     {
-        preMoveCanvas = GameObject.FindGameObjectWithTag("PreMoveCanvas");
-        universalGM = GameObject.FindGameObjectWithTag("UGM");
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene(3);
+        }
+	}
 
-        totalNumberOfPlayers = universalGM.GetComponent<UniversalGameManager>().GetNumberOfPlayers();
+    public void RollDice()
+    {
+        preMoveCanvas.SetActive(false);
+        dice1.GetComponent<DiceStatus>().Roll();
+        dice2.GetComponent<DiceStatus>().Roll();
     }
 
-    #endregion
+    public void SetDiceValueToList(int _value)
+    {
+        diceValues.Add(_value);
+
+        numberOfReadyDice++;
+
+        if(numberOfReadyDice == 2)
+        {
+            foreach (int _number in diceValues)
+            {
+                totalRolled += _number;
+            }
+
+            numberOfReadyDice = 0;
+
+            StartMove();
+        }
+    }
+
+    //Sets the move distance and begins the calculations for where the player can move.
+    public void StartMove()
+    {
+        p1CurrentWP.GetComponent<Waypoints>().BeginWaypointCalculations(totalRolled, p1CurrentWP, pathList);
+    }
+
+    //Allows the spinner to pass the roll to the player.
+    public void SetP1Roll(int _passedRoll)
+    {
+        totalRolled = _passedRoll;
+    }
+
+    public GameObject GetStartingWP()
+    {
+        return startingWP;
+    }
 }

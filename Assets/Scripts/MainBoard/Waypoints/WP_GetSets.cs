@@ -42,6 +42,26 @@ public partial class Waypoints : MonoBehaviour
         return leftWP;
     }
 
+    public GameObject GetP1StagingSpot()
+    {
+        return p1StagingSpot;
+    }
+
+    public GameObject GetP2StagingSpot()
+    {
+        return p2StagingSpot;
+    }
+
+    public GameObject GetP3StagingSpot()
+    {
+        return p3StagingSpot;
+    }
+
+    public GameObject GetP4StagingSpot()
+    {
+        return p4StagingSpot;
+    }
+
     //This method is simply to set the total movement rolled.
     public void SetMoveDistance(int _moveDistance)
     {

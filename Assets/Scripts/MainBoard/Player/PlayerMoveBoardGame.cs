@@ -18,22 +18,83 @@ public class PlayerMoveBoardGame : MonoBehaviour
     */
 
     [SerializeField] private GameObject startingWP;
+
+    [SerializeField] private GameObject currentWP;
+    [SerializeField] private GameObject currentStagingSpot;
+
     [SerializeField] private GameObject mainCamera;
+
+    [SerializeField] private string playerTag;
 
     [SerializeField] private Transform focusedWaypoint; 
 
     private void Awake()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-
-        startingWP = GameObject.FindGameObjectWithTag("LGM").GetComponent<MainBoardLocalManager>().GetStartingWP();
-
-        this.transform.position = startingWP.transform.position;
-        this.transform.rotation = Quaternion.Euler(0, 180, 0);
+        InitializeOthers();
+        AssignPlayerStagingSpot();
+        RotatePlayerToDefault();
     }
 
     private void NavigateSpaces()
     {
         //Insert code to navigate through the board with a controller
     }
+
+    #region Phase 1: PreMove
+
+    //Test
+
+    #endregion
+
+    #region Player Organization and Management
+
+    private void AssignPlayerStagingSpot()
+    {
+        switch (playerTag)
+        {
+            case "Player1":
+                {
+                    currentStagingSpot = currentWP.GetComponent<Waypoints>().GetP1StagingSpot();
+                    break;
+                }
+            case "Player2":
+                {
+                    currentStagingSpot = currentWP.GetComponent<Waypoints>().GetP2StagingSpot();
+                    break;
+                }
+            case "Player3":
+                {
+                    currentStagingSpot = currentWP.GetComponent<Waypoints>().GetP3StagingSpot();
+                    break;
+                }
+            case "Player4":
+                {
+                    currentStagingSpot = currentWP.GetComponent<Waypoints>().GetP4StagingSpot();
+                    break;
+                }
+        }
+    }
+
+    private void RotatePlayerToDefault()
+    {
+        this.transform.position = currentStagingSpot.transform.position;
+        this.transform.rotation = Quaternion.Euler(0, 180, 0);
+    }
+
+    #endregion
+
+    #region Initialization Methods
+
+    private void InitializeOthers()
+    {
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
+        playerTag = this.gameObject.tag;
+
+        startingWP = GameObject.FindGameObjectWithTag("LGM").GetComponent<MainBoardLocalManager>().GetStartingWP();
+
+        currentWP = startingWP;
+    }
+
+    #endregion
 }

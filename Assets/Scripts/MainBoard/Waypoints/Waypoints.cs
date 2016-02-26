@@ -4,15 +4,25 @@ using System.Collections.Generic;
 
 public partial class Waypoints : MonoBehaviour 
 {
+    [Header("Surrounding Waypoints")]
     //Delcare surrounding waypoints.
     [SerializeField] private GameObject forwardWP;
     [SerializeField] private GameObject backWP;
     [SerializeField] private GameObject leftWP;
     [SerializeField] private GameObject rightWP;
 
+    [Header("Player Staging Spots")]
+    //Declare player positions while on waypoint
+    [SerializeField] private GameObject p1StagingSpot;
+    [SerializeField] private GameObject p2StagingSpot;
+    [SerializeField] private GameObject p3StagingSpot;
+    [SerializeField] private GameObject p4StagingSpot;
+
+    [Header("Connected Building")]
     //Delcare surrounding buildings.
     [SerializeField] private GameObject connectedBuilding;
 
+    [Header("Raycast Variables")]
     //Allows user to toggle Debug.DrawLine statements
     [SerializeField] private bool rayFlag = false;
 
